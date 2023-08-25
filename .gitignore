@@ -370,3 +370,6 @@ Output/
 RaceFantasyInstaller/InstallDir/*.exe
 RaceFantasyInstaller/InstallDir/*.dll
 RaceFantasyInstaller/InstallDir/*.xml
+
+# Configuration files that are created while building and are useless anyway
+RaceFantasyInstaller/InstallDir/*.exe.config
