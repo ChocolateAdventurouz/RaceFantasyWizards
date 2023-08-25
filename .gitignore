@@ -373,3 +373,4 @@ RaceFantasyInstaller/InstallDir/*.xml
 
 # Configuration files that are created while building and are useless anyway
 RaceFantasyInstaller/InstallDir/*.exe.config
+RaceFantasyInstaller/InstallDir/*.config
