@@ -5,8 +5,10 @@
  *------------------------------------*/
 
 
-#define OFFLINEINSTALL // Αν θες να κάνεις build τον offline installer θα πρέπει να κάνεις uncomment αυτή την γραμμή κώδικα, και να σιγουρευτείς πως έχεις τοποθετήσει το RaceFantasy.cab στο InstallDir του project
-//#define ONLINEINSTALL // Αν θες να κάνεις build τον online installer θα πρέπει να κάνεις uncomment αυτή την γραμμή κώδικα (και κάνοντας comment το απο πάνω define), και να σιγουρευτείς πως έχεις διαγράψει το RaceFantasy.cab στο InstallDir του project, ώστε να μειωθεί το μέγεθος του installer
+//#define OFFLINEINSTALL // Αν θες να κάνεις build τον offline installer θα πρέπει να κάνεις uncomment αυτή την γραμμή κώδικα, και να σιγουρευτείς πως έχεις τοποθετήσει το RaceFantasy.cab στο InstallDir του project
+
+
+#define ONLINEINSTALL // Αν θες να κάνεις build τον online installer θα πρέπει να κάνεις uncomment αυτή την γραμμή κώδικα (και κάνοντας comment το απο πάνω define), και να σιγουρευτείς πως έχεις διαγράψει το RaceFantasy.cab στο InstallDir του project, ώστε να μειωθεί το μέγεθος του installer
 
 
 using Microsoft.Deployment.Compression.Cab;
