@@ -361,3 +361,12 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# Output directory for build
+
+Output/
+
+# Prebuilts
+RaceFantasyInstaller/InstallDir/*.exe
+RaceFantasyInstaller/InstallDir/*.dll
+RaceFantasyInstaller/InstallDir/*.xml
