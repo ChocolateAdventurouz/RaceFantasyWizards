@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
-// This source code is based in Linuxide's Main Window handler
+
 namespace RaceFantasyInstaller
 {
     public partial class MainWindow : Form
@@ -16,14 +18,29 @@ namespace RaceFantasyInstaller
         Installation installation = new Installation();
         SharedVariables sharedVariables = new SharedVariables();
 
+        private const int WM_NCLBUTTONDOWN = 0xA1;
+        private const int HT_CAPTION = 0x2;
+        [DllImport("user32.dll")]
+        private static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
+        [DllImport("user32.dll")]
+        private static extern bool ReleaseCapture();
+
         public MainWindow()
         {
             InitializeComponent();
+            titlebar.MouseDown += PanelTitleBar_MouseDown;
         }
-
+        private void PanelTitleBar_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                ReleaseCapture();
+                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+            }
+        }
         private int ExitHandler()
         {
-            if (MessageBox.Show("Are you sure that you want to cancel the installation process?", "Race Fantasy - Warning", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (MessageBox.Show("Are you sure you want to cancel the installation process?", "Race Fantasy - Warning", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 displayPanel.Controls.Clear();
                 if (File.Exists(Path.Combine(Path.GetTempPath(), ".sfx.is.complete=yes"))) ;
@@ -40,6 +57,7 @@ namespace RaceFantasyInstaller
         {
             button3.Enabled = false;
             welcome.TopLevel = false;
+            displayPanel.Visible = true;
             displayPanel.Controls.Add(welcome);
             welcome.Show();
         }
@@ -165,6 +183,33 @@ namespace RaceFantasyInstaller
         private void displayPanel_Paint_1(object sender, PaintEventArgs e)
         {
             return;
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            WindowState = FormWindowState.Minimized;
+            return;
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            ExitHandler();
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void titlebar_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

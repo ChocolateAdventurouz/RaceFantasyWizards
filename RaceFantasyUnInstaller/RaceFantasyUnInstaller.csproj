@@ -133,6 +133,7 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Uninstall.resx">
       <DependentUpon>Uninstall.cs</DependentUpon>
@@ -155,6 +156,7 @@
     <Content Include="Resources\char2.png" />
     <Content Include="Resources\char3.png" />
     <Content Include="Resources\char4.png" />
+    <None Include="Resources\minimize.png" />
     <Content Include="rf_logo_256.ico" />
   </ItemGroup>
   <ItemGroup>

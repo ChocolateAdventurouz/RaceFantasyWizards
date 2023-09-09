@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace RaceFantasyUnInstaller
@@ -12,11 +13,26 @@ namespace RaceFantasyUnInstaller
         Confirmation confirmation = new Confirmation();
         Uninstall uninstall = new Uninstall();
         RaceFantasyInstaller.MethodCollection methodCollection = new RaceFantasyInstaller.MethodCollection();
+        private const int WM_NCLBUTTONDOWN = 0xA1;
+        private const int HT_CAPTION = 0x2;
+        [DllImport("user32.dll")]
+        private static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
+        [DllImport("user32.dll")]
+        private static extern bool ReleaseCapture();
+
         public MainWindow()
         {
             InitializeComponent();
+            titlebar.MouseDown += PanelTitleBar_MouseDown;
         }
-
+        private void PanelTitleBar_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                ReleaseCapture();
+                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+            }
+        }
         static void SelfDelete()
         {
             string executablePath = Process.GetCurrentProcess().MainModule.FileName;
@@ -124,7 +140,18 @@ namespace RaceFantasyUnInstaller
             this.Close();
             return;
         }
+        private void button5_Click(object sender, EventArgs e)
+        {
+            WindowState = FormWindowState.Minimized;
+            return;
+        }
 
+        private void button4_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            return;
+
+        }
         private void MainWindow_FormClosed(object sender, FormClosedEventArgs e)
         {
             if (methodCollection.GetPath() == null)
@@ -143,5 +170,6 @@ namespace RaceFantasyUnInstaller
             
             return;
         }
+
     }
 }

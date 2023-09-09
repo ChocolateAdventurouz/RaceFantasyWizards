@@ -247,6 +247,8 @@
     <Content Include="Resources\char2.png" />
     <Content Include="Resources\char3.png" />
     <Content Include="Resources\char4.png" />
+    <None Include="Resources\close.png" />
+    <None Include="Resources\minimize.png" />
     <Content Include="rf_logo_256.ico" />
   </ItemGroup>
   <ItemGroup>
