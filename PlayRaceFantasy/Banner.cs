@@ -59,19 +59,23 @@ namespace PlayRaceFantasy
     {
         public int LaunchGame()
         {
-            if (File.Exists("RaceFantasy.exe"))
+            if (Environment.GetEnvironmentVariable("RaceFantasyInstallationDir", EnvironmentVariableTarget.User) != null)
             {
-                try
+                if (File.Exists("RaceFantasy.exe"))
                 {
-                    Process game = new Process();
-                    game.StartInfo.FileName = "RaceFantasy.exe";
-                    game.Start();
-                    game.WaitForExit();
-                    return 0;
+                    try
+                    {
+                        Process game = new Process();
+                        game.StartInfo.FileName = "RaceFantasy.exe";
+                        game.Start();
+                        game.WaitForExit();
+                        return 0;
+                    }
+                    catch (System.ComponentModel.Win32Exception) { MessageBox.Show("Race Fantasy cannot start due to an error. \nTry re-installing Race Fantasy", "Race Fantasy - Game Error", MessageBoxButtons.OK, MessageBoxIcon.Error); return 1; }
                 }
-                catch (System.ComponentModel.Win32Exception) { MessageBox.Show("Race Fantasy cannot start due to an error. \nTry reinstalling Race Fantasy", "Race Fantasy - Game Error", MessageBoxButtons.OK, MessageBoxIcon.Error); return 1; }
+                else { MessageBox.Show("Race Fantasy required files were not found.\nTry re-installing Race Fantasy", "Race Fantasy - Error", MessageBoxButtons.OK, MessageBoxIcon.Error); return 1; }
             }
-            else { MessageBox.Show("Race Fantasy required files were not found.\nTry reinstalling Race Fantasy", "Race Fantasy - Error", MessageBoxButtons.OK, MessageBoxIcon.Error); return 1; }
+            else { MessageBox.Show("Race Fantasy required files were not found.\nTry re-installing Race Fantasy", "Race Fantasy - Error", MessageBoxButtons.OK, MessageBoxIcon.Error); return 1; }
         }
         public int LaunchUpdater()
         {
@@ -129,7 +133,6 @@ namespace PlayRaceFantasy
             {
                 return 0;
             }
-            MessageBox.Show("Feature not available in Release Candidate (RC) builds of this launcher.", "Race Fantasy - Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             return 0;
         }
     }
