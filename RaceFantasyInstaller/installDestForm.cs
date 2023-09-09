@@ -73,14 +73,21 @@ namespace RaceFantasyInstaller
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
             var mainWindow = (Application.OpenForms.OfType<MainWindow>().FirstOrDefault() ?? new MainWindow());
-            if (textBox1.Text.Contains(":") && textBox1.Text.Contains("\\")) // making sure that there is a directory-style input to avoid bad inputs
+            if (textBox1.Text.Length > 10)
             {
-                path = textBox1.Text;
-                RegisterFileConfig();
+                if (textBox1.Text.Contains(":") && textBox1.Text.Contains("\\") || textBox1.Text.Contains("//")) // making sure that there is a directory-style input to avoid bad inputs
+                {
+                    path = textBox1.Text;
+                    RegisterFileConfig();
+                    mainWindow.button2.Enabled = true;
+                }
+                else
+                {
+                    MessageBox.Show("The installation path doesn't seem valid.", "Race Fantasy");
+                    mainWindow.button2.Enabled = false;
+                }
             }
-            else
-            {
-                MessageBox.Show("The installation path doesn't seem valid.", "Race Fantasy");
+            else if (textBox1.Text.Length > 0 || textBox1.Text.Length < 1) {
                 mainWindow.button2.Enabled = false;
             }
         }
