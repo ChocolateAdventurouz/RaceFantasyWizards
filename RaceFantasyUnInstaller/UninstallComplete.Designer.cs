@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UninstallComplete));
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -40,10 +39,11 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(241, 124);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(447, 26);
+            this.label2.Size = new System.Drawing.Size(512, 26);
             this.label2.TabIndex = 8;
-            this.label2.Text = "Race Fantasy has been uninstalled. Please note that NOT all files are removed, an" +
-    "d you may \r\nneed to remove them manually from the installation directory.";
+            this.label2.Text = "Race Fantasy has been uninstalled. Please note that some files may not have been " +
+    "removed, and you may \r\nneed to remove them manually from the installation direct" +
+    "ory.";
             // 
             // label1
             // 
@@ -57,7 +57,7 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Image = global::RaceFantasyUnInstaller.Properties.Resources.mainbanner;
             this.pictureBox1.Location = new System.Drawing.Point(0, 0);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(216, 449);
