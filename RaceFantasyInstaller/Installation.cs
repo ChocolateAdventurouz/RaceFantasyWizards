@@ -7,7 +7,6 @@
 
 //#define OFFLINEINSTALL // Αν θες να κάνεις build τον offline installer θα πρέπει να κάνεις uncomment αυτή την γραμμή κώδικα, και να σιγουρευτείς πως έχεις τοποθετήσει το RaceFantasy.cab στο InstallDir του project
 
-
 #define ONLINEINSTALL // Αν θες να κάνεις build τον online installer θα πρέπει να κάνεις uncomment αυτή την γραμμή κώδικα (και κάνοντας comment το απο πάνω define), και να σιγουρευτείς πως έχεις διαγράψει το RaceFantasy.cab στο InstallDir του project, ώστε να μειωθεί το μέγεθος του installer
 
 
@@ -106,7 +105,7 @@ namespace RaceFantasyInstaller
             Console.WriteLine("[{0}] - Deploying game package to {1}", DateTime.Now, installationPath);
             Thread.Sleep(1000);
             Directory.CreateDirectory(installationPath);
-            progressBar1.Value = progressBar1.Value + 5;
+           // progressBar1.Value = progressBar1.Value + 5;
 
 #if (ONLINEINSTALL)
 			string gameCabFile = Path.Combine(Path.GetTempPath(), "RaceFantasy.cab");
@@ -121,7 +120,7 @@ namespace RaceFantasyInstaller
             string gameCabFile = Path.Combine(Path.GetTempPath(), "RaceFantasy.cab");
             CabInfo gameCab = new CabInfo(gameCabFile);
             gameCab.Unpack(installationPath);
-            progressBar1.Value = progressBar1.Value + 10;
+          //  progressBar1.Value = progressBar1.Value + 10;
 #endif
 
         }
@@ -146,7 +145,7 @@ namespace RaceFantasyInstaller
             }
             catch (Microsoft.Deployment.Compression.Cab.CabException)
             {
-              
+
                 return;
             }
             catch (Exception ex)
@@ -159,14 +158,14 @@ namespace RaceFantasyInstaller
         {
             string Redistpath = Path.Combine(@installationPath + "\\Engine\\Extras\\Redist\\en-us\\UEPrereqSetup_x64.exe");
             Console.WriteLine("[{0}] - Executing UEPrereqSetup_x64.exe", DateTime.Now);
-            progressBar1.Value = progressBar1.Value + 5;
+         //   progressBar1.Value = progressBar1.Value + 5;
             using (Process ueRedist = new Process())
             {
                 ueRedist.StartInfo.FileName = Redistpath;
                 ueRedist.StartInfo.Arguments = "/s";
                 ueRedist.Start();
                 ueRedist.WaitForExit();
-                progressBar1.Value = progressBar1.Value + 10;
+              //  progressBar1.Value = progressBar1.Value + 10;
             }
         }
         private async Task DeployUninstaller()
@@ -176,7 +175,7 @@ namespace RaceFantasyInstaller
             await Task.Run(() => methods.ExtractUninstaller(installationPath));
             await Task.Run(() => methods.ExtractLauncher(installationPath));
             await Task.Run(() => methods.ExtractUpdater(installationPath));
-            progressBar1.Value = progressBar1.Value + 5;
+           // progressBar1.Value = progressBar1.Value + 5;
             Console.WriteLine("[{0}] - Loaded Installation Form", DateTime.Now);
             using (RegistryKey parent64 = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall", true))
             {
@@ -190,36 +189,36 @@ namespace RaceFantasyInstaller
                 {
                     using (RegistryKey key = parent64.OpenSubKey("Race Fantasy", true) ?? parent64.CreateSubKey("Race Fantasy"))
                     {
-                        progressBar1.Value = progressBar1.Value + 1;
+                       // progressBar1.Value = progressBar1.Value + 1;
                         if (key == null)
                         {
                             Console.WriteLine("[{0}] - UninstallInfo couldn't be deployed to registry. Passing...", DateTime.Now);
                         }
                         Console.WriteLine("[{0}] - Attempting to write UninstallInfo information", DateTime.Now);
                         key.SetValue("DisplayName", "Race Fantasy");
-                        progressBar1.Value = progressBar1.Value + 1;
+                      //  progressBar1.Value = progressBar1.Value + 1;
 #if (ONLINEINSTALL)
                         key.SetValue("ApplicationVersion", await versioning.GrabRemoteVersionNumber());
-                        progressBar1.Value = progressBar1.Value + 5;
+                        //progressBar1.Value = progressBar1.Value + 5;
 #elif (OFFLINEINSTALL)
                         Assembly asm = Assembly.GetExecutingAssembly();
                         FileVersionInfo fileVersion = FileVersionInfo.GetVersionInfo(asm.Location);
                         key.SetValue("ApplicationVersion", fileVersion.ProductVersion.ToString());
 #endif
                         key.SetValue("Publisher", "George Sepetadelis");
-                        progressBar1.Value = progressBar1.Value + 1;
+                        //progressBar1.Value = progressBar1.Value + 1;
                         key.SetValue("DisplayIcon", Path.Combine(installationPath, "uninstall.exe"));
-                        progressBar1.Value = progressBar1.Value + 1;
+                        //progressBar1.Value = progressBar1.Value + 1;
                         key.SetValue("DisplayVersion", key.GetValue("ApplicationVersion"));
-                        progressBar1.Value = progressBar1.Value + 1;
+                        //progressBar1.Value = progressBar1.Value + 1;
                         key.SetValue("URLInfoAbout", "https://racefantasy.rf.gd");
-                        progressBar1.Value = progressBar1.Value + 1;
+                        //progressBar1.Value = progressBar1.Value + 1;
                         key.SetValue("Contact", "giorgossepetadelis11@gmail.com");
-                        progressBar1.Value = progressBar1.Value + 1;
+                        //progressBar1.Value = progressBar1.Value + 1;
                         key.SetValue("InstallDate", DateTime.Now.ToString("yyyyMMdd"));
-                        progressBar1.Value = progressBar1.Value + 1;
+                        //progressBar1.Value = progressBar1.Value + 1;
                         key.SetValue("UninstallString", Path.Combine(installationPath, "uninstall.exe"));
-                        progressBar1.Value = progressBar1.Value + 1;
+                        //progressBar1.Value = progressBar1.Value + 1;
                     }
                 }
                 catch (Exception ex)
@@ -236,7 +235,7 @@ namespace RaceFantasyInstaller
                 Console.WriteLine("[{0}] - Setting environmental variable.", DateTime.Now);
                 Environment.SetEnvironmentVariable("RaceFantasyInstallationDir", installationPath, EnvironmentVariableTarget.User);
                 Thread.Sleep(2000);
-                progressBar1.Value = progressBar1.Value + 3;
+                //progressBar1.Value = progressBar1.Value + 3;
 
 
                 foreach (string dllFile in Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*.dll"))
@@ -248,7 +247,7 @@ namespace RaceFantasyInstaller
 
                 File.Delete(@Path.Combine(Path.GetTempPath(), "RaceFantasy.cab"));
                 //File.Delete(@Path.Combine(Path.GetTempPath(), "installLoc.info"));
-                progressBar1.Value = progressBar1.Value + 4;
+                //progressBar1.Value = progressBar1.Value + 4;
             }
             catch (IOException ex)
             {
@@ -259,7 +258,250 @@ namespace RaceFantasyInstaller
         public async void Installation_Load(object sender, EventArgs e)
         {
             Cursor = Cursors.WaitCursor;
+            if (Environment.GetEnvironmentVariable("RaceFantasyInstallationDir", EnvironmentVariableTarget.User) != null)
+            {
+                if (MessageBox.Show("Race Fantasy seems to be already installed to your system. Do you want to re-install it?", "Race Fantasy - Question", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    MessageBox.Show("Please consider that your computer might reboot in order to correctly install the Unreal Engine Redistributables. If your computer reboots, run the installation wizard again.", "Race Fantasy - Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
+
+                    label3.Text = labelTexts[0];
+                    await Task.Run(async () =>
+                    {
+                        await ReadUpdaterInfo();
+                    });
+                    progressBar1.Value = 10;
+#if (ONLINEINSTALL)
+                if (await versioning.TestConnection() == 1)
+                {
+                    MessageBox.Show("Race Fantasy Installation Wizard requires an active internet connection in order to be installed. \nThe setup process cannot continue.", "Race Fantasy - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Application.Exit();
+                    return;
+                }
+                progressBar1.Value = 15;
+
+                label3.Text = labelTexts[1];
+                // Console.WriteLine("[{0}] - Checking if the cabinet file has been already downloaded", DateTime.Now);
+                await Task.Run(async () =>
+                {
+                    await DownloadCabinetFile();
+                });
+
+
+                label3.Text = labelTexts[7];
+                Console.WriteLine("[{0}] - Deploying game files to {1} ...", DateTime.Now, installationPath);
+                await Task.Run(async () =>
+                {
+                    await DeployGamePackage();
+                });
+                progressBar1.Value = 45;
+
+                label3.Text = labelTexts[3];
+                await Task.Run(async () =>
+                {
+                    await InstallUERedist();
+                });
+                progressBar1.Value = 60;
+
+                label3.Text = labelTexts[4];
+                await Task.Run(async () =>
+                {
+                    await DeployUninstaller();
+                });
+                progressBar1.Value = 75;
+
+                label3.Text = labelTexts[5];
+                await Task.Run(async () =>
+                {
+                    await PostInstallation();
+                });
+                Console.WriteLine("[{0}] - ''''[FINISHED]''''", DateTime.Now);
+                progressBar1.Value = 100;
+                var mainWindow = (Application.OpenForms.OfType<MainWindow>().FirstOrDefault() ?? new MainWindow());
+                Thread.Sleep(900);
+                mainWindow.displayPanel.Controls.Remove(this);
+                installComplete.TopLevel = false;
+                mainWindow.displayPanel.Controls.Add(installComplete);
+                installComplete.Show();
+                mainWindow.button2.Enabled = true;
+                mainWindow.button2.Text = "Finish";
+                this.Close();
+#elif (OFFLINEINSTALL)
+
+
+                    label3.Text = labelTexts[7];
+                    Console.WriteLine("[{0}] - Deploying game files to {1} ...", DateTime.Now, installationPath);
+                    await Task.Run(async () =>
+                    {
+                        await DeployGamePackage();
+                    });
+                    progressBar1.Value = 45;
+
+                    label3.Text = labelTexts[3];
+                    await Task.Run(async () =>
+                    {
+                      await InstallUERedist();
+                     });
+                    progressBar1.Value = 60;
+
+                    label3.Text = labelTexts[4];
+                    await Task.Run(async () =>
+                    {
+                        await DeployUninstaller();
+                    });
+                    progressBar1.Value = 75;
+
+                    label3.Text = labelTexts[5];
+                    await Task.Run(async () =>
+                    {
+                        await PostInstallation();
+                    });
+                    Console.WriteLine("[{0}] - ''''[FINISHED]''''", DateTime.Now);
+                    progressBar1.Value = 100;
+                    var mainWindow = (Application.OpenForms.OfType<MainWindow>().FirstOrDefault() ?? new MainWindow());
+                    Thread.Sleep(900);
+                    mainWindow.displayPanel.Controls.Remove(this);
+                    installComplete.TopLevel = false;
+                    mainWindow.displayPanel.Controls.Add(installComplete);
+                    installComplete.Show();
+                    mainWindow.button2.Enabled = true;
+                    mainWindow.button2.Text = "Finish";
+                    this.Close();
+#else
+			    MessageBox.Show("There is an internal error in the installer.\nDo not worry, it's not your fault.", "");
+#endif
+                    return;
+                }
+                else
+                {
+                    progressBar1.Value = 100;
+                    var mainWindow = (Application.OpenForms.OfType<MainWindow>().FirstOrDefault() ?? new MainWindow());
+                    Thread.Sleep(900);
+                    mainWindow.displayPanel.Controls.Remove(this);
+                    installComplete.TopLevel = false;
+                    mainWindow.displayPanel.Controls.Add(installComplete);
+                    installComplete.Show();
+                    mainWindow.button2.Enabled = true;
+                    mainWindow.button2.Text = "Finish";
+                }
+            }
+            else
+            {
+
+                MessageBox.Show("Please consider that your computer might reboot in order to correctly install the Unreal Engine Redistributables. If your computer reboots, run the installation wizard again.", "Race Fantasy - Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+
+                label3.Text = labelTexts[0];
+                await Task.Run(async () =>
+                {
+                    await ReadUpdaterInfo();
+                });
+
+#if (ONLINEINSTALL)
+                if (await versioning.TestConnection() == 1)
+                {
+                    MessageBox.Show("Race Fantasy Installation Wizard requires an active internet connection in order to be installed. \nThe setup process cannot continue.", "Race Fantasy - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Application.Exit();
+                    return;
+                }
+                progressBar1.Value = 15;
+
+                label3.Text = labelTexts[1];
+                // Console.WriteLine("[{0}] - Checking if the cabinet file has been already downloaded", DateTime.Now);
+                await Task.Run(async () =>
+                {
+                    await DownloadCabinetFile();
+                });
+
+
+                label3.Text = labelTexts[7];
+                Console.WriteLine("[{0}] - Deploying game files to {1} ...", DateTime.Now, installationPath);
+                await Task.Run(async () =>
+                {
+                    await DeployGamePackage();
+                });
+                //progressBar1.Value = 45;
+
+                label3.Text = labelTexts[3];
+                await Task.Run(async () =>
+                {
+                    await InstallUERedist();
+                });
+                //progressBar1.Value = 60;
+
+                label3.Text = labelTexts[4];
+                await Task.Run(async () =>
+                {
+                    await DeployUninstaller();
+                });
+                //progressBar1.Value = 75;
+
+                label3.Text = labelTexts[5];
+                await Task.Run(async () =>
+                {
+                    await PostInstallation();
+                });
+                Console.WriteLine("[{0}] - ''''[FINISHED]''''", DateTime.Now);
+                progressBar1.Value = 100;
+                var mainWindow = (Application.OpenForms.OfType<MainWindow>().FirstOrDefault() ?? new MainWindow());
+                Thread.Sleep(900);
+                mainWindow.displayPanel.Controls.Remove(this);
+                installComplete.TopLevel = false;
+                mainWindow.displayPanel.Controls.Add(installComplete);
+                installComplete.Show();
+                mainWindow.button2.Enabled = true;
+                mainWindow.button2.Text = "Finish";
+                this.Close();
+#elif (OFFLINEINSTALL)
+
+
+                label3.Text = labelTexts[7];
+                Console.WriteLine("[{0}] - Deploying game files to {1} ...", DateTime.Now, installationPath);
+                await Task.Run(async () =>
+                {
+                    await DeployGamePackage();
+                });
+                //progressBar1.Value = 45;
+
+                label3.Text = labelTexts[3];
+                /*                await Task.Run(async () =>
+                                {
+                                    await InstallUERedist();
+                                });*/
+                //progressBar1.Value = 60;
+
+                label3.Text = labelTexts[4];
+                await Task.Run(async () =>
+                {
+                    await DeployUninstaller();
+                });
+                ///progressBar1.Value = 75;
+
+                label3.Text = labelTexts[5];
+                await Task.Run(async () =>
+                {
+                    await PostInstallation();
+                });
+                Console.WriteLine("[{0}] - ''''[FINISHED]''''", DateTime.Now);
+                //progressBar1.Value = 100;
+                var mainWindow = (Application.OpenForms.OfType<MainWindow>().FirstOrDefault() ?? new MainWindow());
+                Thread.Sleep(900);
+                mainWindow.displayPanel.Controls.Remove(this);
+                installComplete.TopLevel = false;
+                mainWindow.displayPanel.Controls.Add(installComplete);
+                installComplete.Show();
+                mainWindow.button2.Enabled = true;
+                mainWindow.button2.Text = "Finish";
+                this.Close();
+#else
+			    MessageBox.Show("There is an internal error in the installer.\nDo not worry, it's not your fault.", "");
+#endif
+                return;
+            }
+        }
+        private async Task installTasks()
+        {
+           
 
             MessageBox.Show("Please consider that your computer might reboot in order to correctly install the Unreal Engine Redistributables. If your computer reboots, run the installation wizard again.", "Race Fantasy - Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
@@ -271,60 +513,60 @@ namespace RaceFantasyInstaller
             });
 
 #if (ONLINEINSTALL)
-			if (await versioning.TestConnection() == 1)
-			{
-				MessageBox.Show("Race Fantasy Installation Wizard requires an active internet connection in order to be installed. \nThe setup process cannot continue.", "Race Fantasy - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-				Application.Exit();
-				return;
-			}
-			progressBar1.Value = 15;
+                if (await versioning.TestConnection() == 1)
+                {
+                    MessageBox.Show("Race Fantasy Installation Wizard requires an active internet connection in order to be installed. \nThe setup process cannot continue.", "Race Fantasy - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Application.Exit();
+                    return;
+                }
+                progressBar1.Value = 15;
 
-			label3.Text = labelTexts[1];
-           // Console.WriteLine("[{0}] - Checking if the cabinet file has been already downloaded", DateTime.Now);
+                label3.Text = labelTexts[1];
+                // Console.WriteLine("[{0}] - Checking if the cabinet file has been already downloaded", DateTime.Now);
                 await Task.Run(async () =>
                 {
                     await DownloadCabinetFile();
                 });
 
 
-			label3.Text = labelTexts[7];
-            Console.WriteLine("[{0}] - Deploying game files to {1} ...", DateTime.Now, installationPath);
-            await Task.Run(async () =>
-            {
-                await DeployGamePackage();
-            });
-            //progressBar1.Value = 45;
+                label3.Text = labelTexts[7];
+                Console.WriteLine("[{0}] - Deploying game files to {1} ...", DateTime.Now, installationPath);
+                await Task.Run(async () =>
+                {
+                    await DeployGamePackage();
+                });
+                //progressBar1.Value = 45;
 
-			label3.Text= labelTexts[3];
-            await Task.Run(async () =>
-            {
-                await InstallUERedist();
-            });
-			//progressBar1.Value = 60;
+                label3.Text = labelTexts[3];
+                await Task.Run(async () =>
+                {
+                    await InstallUERedist();
+                });
+                //progressBar1.Value = 60;
 
-			label3.Text = labelTexts[4];
-            await Task.Run(async () =>
-			{
-				await DeployUninstaller();
-			});
-			//progressBar1.Value = 75;
+                label3.Text = labelTexts[4];
+                await Task.Run(async () =>
+                {
+                    await DeployUninstaller();
+                });
+                //progressBar1.Value = 75;
 
-			label3.Text = labelTexts[5];
-			await Task.Run(async () =>
-			{
-				await PostInstallation();
-			});
-            Console.WriteLine("[{0}] - ''''[FINISHED]''''", DateTime.Now);
-            progressBar1.Value = 100;
-            var mainWindow = (Application.OpenForms.OfType<MainWindow>().FirstOrDefault() ?? new MainWindow());
-			Thread.Sleep(2000);
-			mainWindow.displayPanel.Controls.Remove(this);
-            installComplete.TopLevel = false;
-            mainWindow.displayPanel.Controls.Add(installComplete);
-            installComplete.Show();
-            mainWindow.button2.Enabled = true;
-            mainWindow.button2.Text = "Finish";
-            this.Close();
+                label3.Text = labelTexts[5];
+                await Task.Run(async () =>
+                {
+                    await PostInstallation();
+                });
+                Console.WriteLine("[{0}] - ''''[FINISHED]''''", DateTime.Now);
+                progressBar1.Value = 100;
+                var mainWindow = (Application.OpenForms.OfType<MainWindow>().FirstOrDefault() ?? new MainWindow());
+                Thread.Sleep(900);
+                mainWindow.displayPanel.Controls.Remove(this);
+                installComplete.TopLevel = false;
+                mainWindow.displayPanel.Controls.Add(installComplete);
+                installComplete.Show();
+                mainWindow.button2.Enabled = true;
+                mainWindow.button2.Text = "Finish";
+                this.Close();
 #elif (OFFLINEINSTALL)
 
 
@@ -337,10 +579,10 @@ namespace RaceFantasyInstaller
             //progressBar1.Value = 45;
 
             label3.Text = labelTexts[3];
-            await Task.Run(async () =>
-            {
-                await InstallUERedist();
-            });
+            /*                await Task.Run(async () =>
+                            {
+                                await InstallUERedist();
+                            });*/
             //progressBar1.Value = 60;
 
             label3.Text = labelTexts[4];
@@ -348,7 +590,7 @@ namespace RaceFantasyInstaller
             {
                 await DeployUninstaller();
             });
-            //progressBar1.Value = 75;
+            ///progressBar1.Value = 75;
 
             label3.Text = labelTexts[5];
             await Task.Run(async () =>
@@ -356,9 +598,9 @@ namespace RaceFantasyInstaller
                 await PostInstallation();
             });
             Console.WriteLine("[{0}] - ''''[FINISHED]''''", DateTime.Now);
-            progressBar1.Value = 100;
+            //progressBar1.Value = 100;
             var mainWindow = (Application.OpenForms.OfType<MainWindow>().FirstOrDefault() ?? new MainWindow());
-            Thread.Sleep(2000);
+            Thread.Sleep(900);
             mainWindow.displayPanel.Controls.Remove(this);
             installComplete.TopLevel = false;
             mainWindow.displayPanel.Controls.Add(installComplete);
@@ -367,10 +609,11 @@ namespace RaceFantasyInstaller
             mainWindow.button2.Text = "Finish";
             this.Close();
 #else
-			MessageBox.Show("There is an internal error in the installer.\nDo not worry, it's not your fault.", "");
+			    MessageBox.Show("There is an internal error in the installer.\nDo not worry, it's not your fault.", "");
 #endif
             return;
         }
+
         private void pictureBox2_Click(object sender, EventArgs e)
         {
             return;
