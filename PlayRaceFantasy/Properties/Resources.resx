@@ -118,40 +118,43 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="launch_hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\launch_hover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="repair_hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\repair_hover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="updaterBackground" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\updaterBackground.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="exit_hovered" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\exit_hovered.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="exit_nomral" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\exit_nomral.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="launch_hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\launch_hover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="launch_pressed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\launch_pressed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="launch_normal" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\launch_normal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="launch_pressed" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\launch_pressed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="repair_hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\repair_hover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="exit_nomral" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\exit_nomral.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="repair_normal" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\repair_normal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="repair_pressed" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\repair_pressed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="update_hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\update_hover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="update_normal" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\update_normal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="update_pressed" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\update_pressed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="update_hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\update_hover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="repair_pressed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\repair_pressed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="close" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\close.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
