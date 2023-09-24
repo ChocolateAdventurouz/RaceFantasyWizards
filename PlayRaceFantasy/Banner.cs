@@ -64,7 +64,7 @@ namespace PlayRaceFantasy
                     try
                     {
                         Process game = new Process();
-                        game.StartInfo.FileName = "RaceFantasy.exe";
+                        game.StartInfo.FileName = Path.Combine(@Environment.GetEnvironmentVariable("RaceFantasyInstallationDir", EnvironmentVariableTarget.User), "RaceFantasy.exe");
                         game.Start();
                         game.WaitForExit();
                         return 0;
@@ -82,7 +82,7 @@ namespace PlayRaceFantasy
                 try
                 {
                     Process updater = new Process();
-                    updater.StartInfo.FileName = "updater.exe";
+                    updater.StartInfo.FileName = Path.Combine(@Environment.GetEnvironmentVariable("RaceFantasyInstallationDir", EnvironmentVariableTarget.User), "updater.exe");
                     updater.StartInfo.Verb = "runAs";
                     updater.StartInfo.UseShellExecute = true;
                     updater.Start();
