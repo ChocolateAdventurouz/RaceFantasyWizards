@@ -11,7 +11,7 @@ namespace PlayRaceFantasy
     public partial class Banner : Form
     {
         Actions actions = new Actions();
-        // Setting rules for picturebox'es
+        
         public bool pbx1_canChangeImage = true;
         public bool pbx2_canChangeImage = true;
         public bool pbx3_canChangeImage = true;
@@ -30,8 +30,6 @@ namespace PlayRaceFantasy
         private void pictureBox2_MouseHover(object sender, EventArgs e){ if (pbx2_canChangeImage) { pictureBox2.Image = Properties.Resources.update_hover; } return; }
         private void pictureBox2_MouseLeave(object sender, EventArgs e) { if (pbx2_canChangeImage) { pictureBox2.Image = Properties.Resources.update_normal; } return; }
         private void pictureBox4_Click(object sender, EventArgs e){ Application.Exit(); return; }
-      //  private void pictureBox4_MouseHover(object sender, EventArgs e) { pictureBox4.Image = Properties.Resources.exit_hovered; return; }
-      //  private void pictureBox4_MouseLeave(object sender, EventArgs e) { pictureBox4.Image = Properties.Resources.exit_nomral; return; }
         private async void pictureBox3_Click(object sender, EventArgs e) { pbx3_canChangeImage = false; pbx4_canChangeImage = false; pictureBox3.Image = PlayRaceFantasy.Properties.Resources.repair_pressed; pictureBox3.Enabled = false; await actions.RepairInstallation(); pictureBox3.Enabled = true; pictureBox3.Image = Properties.Resources.repair_normal; pbx3_canChangeImage = true; }
         private void pictureBox3_MouseHover(object sender, EventArgs e){ if (pbx3_canChangeImage) { pictureBox3.Image = Properties.Resources.repair_hover; }; return; }
         private void pictureBox3_MouseLeave(object sender, EventArgs e){ if (pbx3_canChangeImage) { pictureBox3.Image = Properties.Resources.repair_normal; }; return; }
@@ -123,7 +121,6 @@ namespace PlayRaceFantasy
                         UseShellExecute = true
                     };
                     Process.Start(processStartInfo);
-                    
                     Process.GetCurrentProcess().Kill();
                 }
                 catch (System.ComponentModel.Win32Exception) { MessageBox.Show("Race Fantasy cannot check for updates due to an error (maybe administrator rights were not given).", "Race Fantasy - Update Error", MessageBoxButtons.OK, MessageBoxIcon.Error); return 1; }
