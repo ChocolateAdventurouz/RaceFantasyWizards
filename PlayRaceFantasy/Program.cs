@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Net.Http;
 using System.Net.NetworkInformation;
 using System.Threading.Tasks;
@@ -11,6 +12,7 @@ namespace PlayRaceFantasy
         [STAThread]
         static void Main()
         {
+            //Console.WriteLine($"Executable Installation Directory: " + Path.Combine(Environment.GetEnvironmentVariable("RaceFantasyInstallationDir", EnvironmentVariableTarget.User), "RaceFantasy.exe").ToString());
             Application.SetCompatibleTextRenderingDefault(false);
             Application.EnableVisualStyles();
             Application.Run(new Banner());
