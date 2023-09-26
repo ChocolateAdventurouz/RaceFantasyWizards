@@ -57,9 +57,9 @@ namespace PlayRaceFantasy
     {
         public int LaunchGame()
         {
-            if (Environment.GetEnvironmentVariable("RaceFantasyInstallationDir", EnvironmentVariableTarget.User) != null)
+            if (@Environment.GetEnvironmentVariable("RaceFantasyInstallationDir", EnvironmentVariableTarget.User) != null)
             {
-                if (File.Exists("RaceFantasy.exe"))
+                if (File.Exists(Path.Combine(@Environment.GetEnvironmentVariable("RaceFantasyInstallationDir", EnvironmentVariableTarget.User), "RaceFantasy.exe")))
                 {
                     try
                     {
@@ -77,7 +77,7 @@ namespace PlayRaceFantasy
         }
         public int LaunchUpdater()
         {
-            if (File.Exists("updater.exe"))
+            if (File.Exists(Path.Combine(@Environment.GetEnvironmentVariable("RaceFantasyInstallationDir", EnvironmentVariableTarget.User), "updater.exe")))
             {
                 try
                 {
