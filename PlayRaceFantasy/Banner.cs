@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Net;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -11,7 +12,18 @@ namespace PlayRaceFantasy
     public partial class Banner : Form
     {
         Actions actions = new Actions();
-        
+
+        [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
+        private static extern IntPtr CreateRoundRectRgn
+        (
+            int nLeftRect,     // x-coordinate of upper-left corner
+            int nTopRect,      // y-coordinate of upper-left corner
+            int nRightRect,    // x-coordinate of lower-right corner
+            int nBottomRect,   // y-coordinate of lower-right corner
+            int nWidthEllipse, // width of ellipse
+            int nHeightEllipse // height of ellipse
+        );
+
         public bool pbx1_canChangeImage = true;
         public bool pbx2_canChangeImage = true;
         public bool pbx3_canChangeImage = true;
@@ -20,6 +32,8 @@ namespace PlayRaceFantasy
         public Banner()
         {
             InitializeComponent();
+            this.FormBorderStyle = FormBorderStyle.None;
+            Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 45, 45));
         }
 
         private void Banner_Load(object sender, EventArgs e){ return;}
