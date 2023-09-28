@@ -18,6 +18,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -40,13 +41,12 @@ namespace RaceFantasyInstaller
             "Extracting Race Fantasy..."
         };
 
-
-        //private readonly string installationInfoPath = Path.Combine(Path.GetTempPath(), "installationLoc.info");
         private Random random = new Random();
         private InstallComplete installComplete = new InstallComplete();
         private string installationPath;
         private string correctVersion;
         public bool downloadStatus;
+
         MethodCollection methods = new MethodCollection();
         MethodCollection.Versioning versioning = new MethodCollection.Versioning();
         public Installation()

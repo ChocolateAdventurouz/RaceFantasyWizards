@@ -4,6 +4,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -12,12 +13,27 @@ namespace RaceFantasyUpdater
 {
     public partial class UpdateFound : Form
     {
+
+        [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
+        private static extern IntPtr CreateRoundRectRgn
+        (
+            int nLeftRect,     // x-coordinate of upper-left corner
+            int nTopRect,      // y-coordinate of upper-left corner
+            int nRightRect,    // x-coordinate of lower-right corner
+            int nBottomRect,   // y-coordinate of lower-right corner
+            int nWidthEllipse, // width of ellipse
+            int nHeightEllipse // height of ellipse
+        );
+
         readonly RaceFantasyInstaller.MethodCollection methods = new RaceFantasyInstaller.MethodCollection();
         readonly RaceFantasyInstaller.MethodCollection.Versioning versioning = new RaceFantasyInstaller.MethodCollection.Versioning();
         private readonly string installationPath = new RaceFantasyInstaller.MethodCollection().GetPath();
+
         public UpdateFound()
         {
             InitializeComponent();
+            this.FormBorderStyle = FormBorderStyle.None;
+            Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 45, 45));
         }
 
         private void StackOverFlowExploit() // Fuck you. You will close by the bad way.

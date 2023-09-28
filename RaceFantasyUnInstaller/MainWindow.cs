@@ -13,8 +13,21 @@ namespace RaceFantasyUnInstaller
         Confirmation confirmation = new Confirmation();
         Uninstall uninstall = new Uninstall();
         RaceFantasyInstaller.MethodCollection methodCollection = new RaceFantasyInstaller.MethodCollection();
+        
         private const int WM_NCLBUTTONDOWN = 0xA1;
         private const int HT_CAPTION = 0x2;
+
+        [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
+        private static extern IntPtr CreateRoundRectRgn
+        (
+            int nLeftRect,     // x-coordinate of upper-left corner
+            int nTopRect,      // y-coordinate of upper-left corner
+            int nRightRect,    // x-coordinate of lower-right corner
+            int nBottomRect,   // y-coordinate of lower-right corner
+            int nWidthEllipse, // width of ellipse
+            int nHeightEllipse // height of ellipse
+        );
+
         [DllImport("user32.dll")]
         private static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
         [DllImport("user32.dll")]
@@ -23,6 +36,8 @@ namespace RaceFantasyUnInstaller
         public MainWindow()
         {
             InitializeComponent();
+            this.FormBorderStyle = FormBorderStyle.None;
+            Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 25, 25));
             titlebar.MouseDown += PanelTitleBar_MouseDown;
         }
         private void PanelTitleBar_MouseDown(object sender, MouseEventArgs e)
